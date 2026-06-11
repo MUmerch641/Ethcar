@@ -1,0 +1,15 @@
+ALTER TABLE `bookings`
+  ADD COLUMN `trip_type` varchar(20) NOT NULL DEFAULT 'one-way',
+  ADD COLUMN `via_stop` varchar(255) DEFAULT NULL,
+  ADD COLUMN `return_date` date DEFAULT NULL,
+  ADD COLUMN `return_time` time DEFAULT NULL,
+  ADD COLUMN `taxi_count` int(11) NOT NULL DEFAULT 1,
+  ADD COLUMN `estimated_price` varchar(20) DEFAULT NULL,
+  ADD COLUMN `distance` varchar(50) DEFAULT NULL,
+  ADD COLUMN `booking_category` varchar(20) DEFAULT 'standard',
+  ADD COLUMN `flight_number` varchar(50) DEFAULT NULL,
+  ADD COLUMN `child_seats` int(11) DEFAULT 0,
+  ADD COLUMN `wheelchair_accessible` tinyint(1) DEFAULT 0,
+  ADD COLUMN `payment_method` varchar(50) DEFAULT 'cash',
+  ADD COLUMN `company_name` varchar(255) DEFAULT NULL,
+  ADD COLUMN `account_reference` varchar(100) DEFAULT NULL;

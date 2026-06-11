@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <!-- Outer rounded square with gold border -->
+  <rect width="512" height="512" rx="128" fill="#0d2847" stroke="#facc15" stroke-width="20"/>
+  <!-- Stylized car path centered vertically and horizontally -->
+  <g transform="translate(64, 78)" fill="#facc15">
+    <!-- Top cabin -->
+    <path d="M120 180 L264 80 C272 75, 288 75, 296 80 L440 180 L460 210 C465 218, 458 228, 448 228 L32 228 C22 228, 15 218, 20 210 Z"/>
+    <!-- Car body and bumper -->
+    <path d="M16 248 L464 248 C476 248, 480 258, 474 266 L440 310 L440 340 C440 348, 432 356, 422 356 L388 356 C378 356, 370 348, 370 340 L370 326 L110 326 L110 340 C110 348, 102 356, 92 356 L58 356 C48 356, 40 348, 40 340 L40 310 L6 266 C0 258, 4 248, 16 248 Z"/>
+    <!-- Headlights -->
+    <ellipse cx="80" cy="278" rx="28" ry="12" fill="#ffffff"/>
+    <ellipse cx="400" cy="278" rx="28" ry="12" fill="#ffffff"/>
+    <!-- Grille -->
+    <rect x="156" y="270" width="168" height="16" rx="8" fill="#0d2847"/>
+    <rect x="156" y="294" width="168" height="8" rx="4" fill="#0d2847"/>
+  </g>
+</svg>

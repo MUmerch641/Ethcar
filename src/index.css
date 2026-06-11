@@ -1,0 +1,182 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #facc15; /* Vibrant Yellow */
+  --primary-glow: rgba(250, 204, 21, 0.15);
+  --bg-dark: #0d2847;
+  --bg-dark-card: rgba(13, 40, 71, 0.6);
+}
+
+body {
+  background-color: var(--bg-dark);
+  color: #f3f4f6;
+  font-family: 'Poppins', 'Inter', sans-serif;
+  overflow-x: hidden;
+}
+
+/* Custom Typography Utilities */
+.font-condensed {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-style: italic;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+}
+
+.font-poppins {
+  font-family: 'Poppins', sans-serif;
+}
+
+.font-inter {
+  font-family: 'Inter', sans-serif;
+}
+
+/* Premium Styling Components */
+.glass-panel {
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.glass-panel-glow {
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(250, 204, 21, 0.15);
+  box-shadow: 0 0 30px rgba(250, 204, 21, 0.03);
+}
+
+.glass-input {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-input:focus {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--primary);
+  box-shadow: 0 0 15px rgba(250, 204, 21, 0.1);
+  outline: none;
+}
+
+.yellow-gradient-text {
+  background: linear-gradient(135deg, #ffe066 0%, #facc15 50%, #eab308 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.dark-gradient-bg {
+  background: radial-gradient(circle at top right, rgba(250, 204, 21, 0.05), transparent 60%),
+              radial-gradient(circle at bottom left, rgba(13, 40, 71, 0.5), transparent 50%),
+              #0d2847;
+}
+
+.blueprint-grid {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+}
+
+/* Animations */
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(250, 204, 21, 0.15);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(250, 204, 21, 0.35);
+  }
+}
+
+.pulse-glow-btn {
+  animation: pulseGlow 2.5s infinite ease-in-out;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0d2847;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #facc15;
+}
+
+/* React Google Places Autocomplete override for premium dark mode */
+.css-b62m3t-container {
+  color: #ffffff !important;
+}
+
+input[type="date"],
+input[type="time"] {
+  color-scheme: dark;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  opacity: 1;
+}
+
+/* Force mobile browser date/time inner text elements to be white on dark bg */
+input[type="date"]::-webkit-datetime-edit,
+input[type="date"]::-webkit-datetime-edit-fields-wrapper,
+input[type="date"]::-webkit-datetime-edit-text,
+input[type="date"]::-webkit-datetime-edit-month-field,
+input[type="date"]::-webkit-datetime-edit-day-field,
+input[type="date"]::-webkit-datetime-edit-year-field,
+input[type="time"]::-webkit-datetime-edit,
+input[type="time"]::-webkit-datetime-edit-fields-wrapper,
+input[type="time"]::-webkit-datetime-edit-text,
+input[type="time"]::-webkit-datetime-edit-hour-field,
+input[type="time"]::-webkit-datetime-edit-minute-field,
+input[type="time"]::-webkit-datetime-edit-ampm-field {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  opacity: 1;
+}
+
+/* iOS Safari specific date/time value wrapper */
+input[type="date"]::-webkit-date-and-time-value,
+input[type="time"]::-webkit-date-and-time-value {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  text-align: left;
+  opacity: 1;
+}
+
+/* Utility to hide native date/time internal text (use on inputs when overlay used) */
+.native-value-hidden,
+.native-value-hidden::-webkit-datetime-edit,
+.native-value-hidden::-webkit-datetime-edit-fields-wrapper,
+.native-value-hidden::-webkit-datetime-edit-text,
+.native-value-hidden::-webkit-datetime-edit-month-field,
+.native-value-hidden::-webkit-datetime-edit-day-field,
+.native-value-hidden::-webkit-datetime-edit-year-field,
+.native-value-hidden::-webkit-datetime-edit-hour-field,
+.native-value-hidden::-webkit-datetime-edit-minute-field,
+.native-value-hidden::-webkit-datetime-edit-ampm-field,
+.native-value-hidden::-webkit-date-and-time-value {
+  color: transparent !important;
+  -webkit-text-fill-color: transparent !important;
+  opacity: 0 !important;
+}
+
+/* Hide scrollbar for mobile tabs */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
