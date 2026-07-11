@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Calendar, Clock, Users, Briefcase, User, Phone, Mail, CheckCircle, ArrowRight, ArrowLeft, ArrowLeftRight, MapPin, BadgeCheck, ShieldCheck, Sparkles, Plane, Building2, Car } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
@@ -55,6 +55,25 @@ const BookingForm = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [distance, setDistance] = useState<string | null>(null);
   const [price, setPrice] = useState<number>(25.00);
+  const departureDateRef = useRef<HTMLInputElement>(null);
+  const departureTimeRef = useRef<HTMLInputElement>(null);
+  const returnDateRef = useRef<HTMLInputElement>(null);
+  const returnTimeRef = useRef<HTMLInputElement>(null);
+
+  const openNativePicker = (input: HTMLInputElement | null) => {
+    if (!input) return;
+
+    try {
+      if (typeof input.showPicker === 'function') {
+        input.showPicker();
+      } else {
+        input.focus();
+        input.click();
+      }
+    } catch {
+      input.focus();
+    }
+  };
 
   const placeSelectStyles = {
     control: (provided: any, state: any) => ({
@@ -222,7 +241,7 @@ const BookingForm = () => {
     };
     
     try {
-      const response = await fetch('https://ehtacars.com/api/submit_booking.php', {
+      const response = await fetch('https://www.ehta.net/api/submit_booking.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(submissionData),
@@ -236,7 +255,7 @@ const BookingForm = () => {
       }
     } catch (error) {
       console.error('Error submitting booking:', error);
-      setIsSubmitted(true); 
+      alert('Unable to submit booking. Please try again or contact support.');
     } finally {
       setIsSubmitting(false);
     }
@@ -601,19 +620,20 @@ const BookingForm = () => {
                   {/* Journey Date */}
                   <div className="space-y-1.5 text-left">
                     <label className="text-[10px] font-black tracking-widest text-gray-400 uppercase">Departure Date</label>
-                    <div className="relative">
+                    <div className="relative cursor-pointer" onClick={() => openNativePicker(departureDateRef.current)}>
                       <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
                       <span className={`absolute left-12 right-10 top-1/2 -translate-y-1/2 text-sm font-medium pointer-events-none truncate ${formData.date ? 'text-white' : 'text-gray-500'}`}>
                         {formData.date ? formatDateDisplay(formData.date) : 'Select departure date'}
                       </span>
                       <input
+                        ref={departureDateRef}
                         required
                         type="date"
                         name="date"
                         min={today}
                         value={formData.date}
                         onChange={handleChange}
-                        className="w-full pl-12 pr-10 py-4 bg-white/[0.03] border border-white/8 rounded-2xl focus:border-yellow-400 focus:bg-gray-950/40 transition-all outline-none text-transparent caret-transparent text-sm native-value-hidden"
+                        className="w-full pl-12 pr-10 py-4 bg-white/[0.03] border border-white/8 rounded-2xl focus:border-yellow-400 focus:bg-gray-950/40 transition-all outline-none text-transparent caret-transparent text-sm native-value-hidden cursor-pointer"
                       />
                     </div>
                   </div>
@@ -623,36 +643,38 @@ const BookingForm = () => {
                     <>
                       <div className="space-y-1.5 text-left">
                         <label className="text-[10px] font-black tracking-widest text-gray-400 uppercase">Return Date</label>
-                        <div className="relative">
+                        <div className="relative cursor-pointer" onClick={() => openNativePicker(returnDateRef.current)}>
                           <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
                           <span className={`absolute left-12 right-10 top-1/2 -translate-y-1/2 text-sm font-medium pointer-events-none truncate ${formData.returnDate ? 'text-white' : 'text-gray-500'}`}>
                             {formData.returnDate ? formatDateDisplay(formData.returnDate) : 'Select return date'}
                           </span>
                           <input
+                            ref={returnDateRef}
                             required={requiresReturnTripDetails}
                             type="date"
                             name="returnDate"
                             min={formData.date || today}
                             value={formData.returnDate}
                             onChange={handleChange}
-                            className="w-full pl-12 pr-10 py-4 bg-white/[0.03] border border-white/8 rounded-2xl focus:border-yellow-400 focus:bg-gray-950/40 transition-all outline-none text-transparent caret-transparent text-sm native-value-hidden"
+                            className="w-full pl-12 pr-10 py-4 bg-white/[0.03] border border-white/8 rounded-2xl focus:border-yellow-400 focus:bg-gray-950/40 transition-all outline-none text-transparent caret-transparent text-sm native-value-hidden cursor-pointer"
                           />
                         </div>
                       </div>
                       <div className="space-y-1.5 text-left">
                         <label className="text-[10px] font-black tracking-widest text-gray-400 uppercase">Return Time</label>
-                        <div className="relative">
+                        <div className="relative cursor-pointer" onClick={() => openNativePicker(returnTimeRef.current)}>
                           <Clock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
                           <span className={`absolute left-12 right-10 top-1/2 -translate-y-1/2 text-sm font-medium pointer-events-none truncate ${formData.returnTime ? 'text-white' : 'text-gray-500'}`}>
                             {formData.returnTime ? formatTimeDisplay(formData.returnTime) : 'Select return time'}
                           </span>
                           <input
+                            ref={returnTimeRef}
                             required={requiresReturnTripDetails}
                             type="time"
                             name="returnTime"
                             value={formData.returnTime}
                             onChange={handleChange}
-                            className="w-full pl-12 pr-10 py-4 bg-white/[0.03] border border-white/8 rounded-2xl focus:border-yellow-400 focus:bg-gray-950/40 transition-all outline-none text-transparent caret-transparent text-sm native-value-hidden"
+                            className="w-full pl-12 pr-10 py-4 bg-white/[0.03] border border-white/8 rounded-2xl focus:border-yellow-400 focus:bg-gray-950/40 transition-all outline-none text-transparent caret-transparent text-sm native-value-hidden cursor-pointer"
                           />
                         </div>
                       </div>
@@ -662,18 +684,19 @@ const BookingForm = () => {
                   {/* Journey Time */}
                   <div className="space-y-1.5 text-left">
                     <label className="text-[10px] font-black tracking-widest text-gray-400 uppercase">Departure Time</label>
-                    <div className="relative">
+                    <div className="relative cursor-pointer" onClick={() => openNativePicker(departureTimeRef.current)}>
                       <Clock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
                       <span className={`absolute left-12 right-10 top-1/2 -translate-y-1/2 text-sm font-medium pointer-events-none truncate ${formData.time ? 'text-white' : 'text-gray-500'}`}>
                         {formData.time ? formatTimeDisplay(formData.time) : 'Select departure time'}
                       </span>
                       <input
+                        ref={departureTimeRef}
                         required
                         type="time"
                         name="time"
                         value={formData.time}
                         onChange={handleChange}
-                        className="w-full pl-12 pr-10 py-4 bg-white/[0.03] border border-white/8 rounded-2xl focus:border-yellow-400 focus:bg-gray-950/40 transition-all outline-none text-transparent caret-transparent text-sm native-value-hidden"
+                        className="w-full pl-12 pr-10 py-4 bg-white/[0.03] border border-white/8 rounded-2xl focus:border-yellow-400 focus:bg-gray-950/40 transition-all outline-none text-transparent caret-transparent text-sm native-value-hidden cursor-pointer"
                       />
                     </div>
                   </div>

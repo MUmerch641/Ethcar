@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ]);
 
         // 2. Build Admin & Client Email Templates
-        $admin_email = "Ehtacars@gmail.com";
+        $admin_email = "Contactehta@gmail.com";
         $admin_subject = ($booking_category === 'airport' ? "✈️ [New Airport Booking Alert] " : "🚖 [New Booking Alert] ") . $data['pickup'] . " to " . $data['dropoff'];
 
         $admin_message = "
@@ -600,7 +600,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <table border='0' cellpadding='0' cellspacing='0' width='100%' style='border-top: 1px solid #1e293b; padding-top: 20px; margin-top: 20px;'>
                                 <tr>
                                     <td style='font-size: 12px; color: #9ca3af; line-height: 1.6;'>
-                                        Need to make changes or cancel your ride? Please contact our team via email at least 24 hours in advance at <a href='mailto:Contact@ehta.net' style='color: #facc15; font-weight: bold; text-decoration: none;'>Contact@ehta.net</a>.
+                                        Need to make changes or cancel your ride? Please contact our team via email at least 24 hours in advance at <a href='mailto:Contactehta@gmail.com' style='color: #facc15; font-weight: bold; text-decoration: none;'>Contactehta@gmail.com</a>.
                                     </td>
                                 </tr>
                             </table>
@@ -628,20 +628,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $admin_headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
         $admin_headers .= "From: Ehta Dispatch <Contact@ehta.net>" . "\r\n";
 
-        mail($admin_email, $admin_subject, $admin_message, $admin_headers);
+        $admin_mail_sent = mail($admin_email, $admin_subject, $admin_message, $admin_headers);
 
         // Send Email to Client (Confirmation)
+        $client_mail_sent = null;
         if (!empty($data['email'])) {
             $client_subject = "✉️ Ehta Booking Confirmation";
             $client_headers = "MIME-Version: 1.0" . "\r\n";
             $client_headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
             $client_headers .= "From: Ehta Support <Contact@ehta.net>" . "\r\n";
-            $client_headers .= "Reply-To: Contact@ehta.net" . "\r\n";
+            $client_headers .= "Reply-To: Contactehta@gmail.com" . "\r\n";
             
-            mail($data['email'], $client_subject, $client_message, $client_headers);
+            $client_mail_sent = mail($data['email'], $client_subject, $client_message, $client_headers);
         }
 
-        echo json_encode(["status" => "success", "message" => "Booking saved and confirmation emails sent successfully"]);
+        echo json_encode([
+            "status" => "success",
+            "message" => "Booking saved",
+            "admin_mail_sent" => $admin_mail_sent,
+            "client_mail_sent" => $client_mail_sent ?? null
+        ]);
 
     } catch (Exception $e) {
         echo json_encode(["status" => "error", "message" => $e->getMessage()]);

@@ -156,7 +156,11 @@ input[type="time"]::-webkit-date-and-time-value {
 }
 
 /* Utility to hide native date/time internal text (use on inputs when overlay used) */
-.native-value-hidden,
+.native-value-hidden {
+  color: transparent !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
 .native-value-hidden::-webkit-datetime-edit,
 .native-value-hidden::-webkit-datetime-edit-fields-wrapper,
 .native-value-hidden::-webkit-datetime-edit-text,
