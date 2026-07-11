@@ -76,7 +76,7 @@ const AdminDashboard = () => {
   const fetchBookings = async () => {
     setLoading(true);
     try {
-      const response = await fetch('https://ehtacars.com/api/get_bookings.php');
+      const response = await fetch('https://ehta.net/api/get_bookings.php');
       const result = await response.json();
       if (result.status === 'success') {
         setBookings(result.data);
@@ -118,7 +118,7 @@ const AdminDashboard = () => {
     setDeleteError('');
     setDeletingId(id);
     try {
-      const response = await fetch('https://ehtacars.com/api/delete_booking.php', {
+      const response = await fetch('https://ehta.net/api/delete_booking.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id }),

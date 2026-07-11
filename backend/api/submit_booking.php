@@ -349,7 +349,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <table border='0' cellpadding='0' cellspacing='0' width='100%' style='margin-top: 10px;'>
                                 <tr>
                                     <td align='center'>
-                                        <a href='https://ehtacars.com/admin' style='display: inline-block; background-color: #facc15; border-radius: 10px; color: #0d2847; font-size: 13px; font-weight: 800; letter-spacing: 1px; padding: 16px 36px; text-decoration: none; text-transform: uppercase; box-shadow: 0 4px 15px rgba(250, 204, 21, 0.3);'>Open Dispatch Desk</a>
+                                        <a href='https://ehta.net/admin' style='display: inline-block; background-color: #facc15; border-radius: 10px; color: #0d2847; font-size: 13px; font-weight: 800; letter-spacing: 1px; padding: 16px 36px; text-decoration: none; text-transform: uppercase; box-shadow: 0 4px 15px rgba(250, 204, 21, 0.3);'>Open Dispatch Desk</a>
                                     </td>
                                 </tr>
                             </table>
